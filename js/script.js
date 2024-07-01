@@ -17,6 +17,11 @@ const addButtonHandler = () => {
   } else showToastMessage("Please provide a valid title!");
 };
 
+const deleteTask = (taskId) => {
+  tasks = tasks.filter((task) => task.id !== taskId);
+  renderTasks();
+};
+
 const createTask = (taskTitle) => {
   const task = {
     id: new Date().getTime(),
@@ -35,6 +40,10 @@ const renderTasks = () => {
   tasks.forEach((task) => {
     const texts = [task.title, " Created at: " + task.createdAt];
     const $tasksList = createElement(texts, "li");
+    const $deleteButton = createElement("Delete", "button", () =>
+      deleteTask(task.id)
+    );
+    $tasksList.appendChild($deleteButton);
     $taskList.appendChild($tasksList);
   });
 };
